@@ -173,10 +173,10 @@ def driver_info(driver_id):
     print("Driver\'s car plate number: " + car_plate)
     avg_score = remove_sym(str(run_query(f"SELECT AVG(avg_trip_score) FROM trips WHERE driver_id = {driver_id};")))
     avg_score = round(float(avg_score), 1)
-    if avg_score < 3.9:
+    if avg_score < 5.9:
         avg_score_colored = colored(225, 0, 0, str(avg_score))
         avg_score_colored = avg_score_colored.replace(" ", "")
-    elif avg_score > 3.9 and avg_score < 7.9:
+    elif avg_score > 5.9 and avg_score < 7.9:
         avg_score_colored = colored(255, 191, 0, str(avg_score))
         avg_score_colored = avg_score_colored.replace(" ", "")
     elif avg_score < 8:
