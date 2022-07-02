@@ -39,27 +39,27 @@ def negative_review(driver_id):
                             '''Take average from data input and round it'''
                             avg_trip_score = round(mean(rate_list))
                             trips(do_you_like, condition_score, style_score, behaviour_score, driver_id, avg_trip_score)
-                            print("Thanks for you review! Closing program...")
+                            print("Thank you for your review! Closing program...")
                             exit()
                         else:
-                            print("The rating is in the wrong range, please try again!")
+                            print("The rating is in the wrong range. Please try again!")
                             break
                 else:       
-                    print("The rating is in the wrong range, please try again!")
+                    print("The rating is in the wrong range. Please try again!")
                     break
         else:       
-            print("The rating is in the wrong range, please try again!")
+            print("The rating is in the wrong range. Please try again!")
             break
 
 def dev_mode_new_driver():
     print("Enter driver\'s name:")
     d_name = input()
-    print("Enter driver\'s family name:")
+    print("Enter drivers last name:")
     df_name = input()
-    print("Enter driver car\'s plate number:")
+    print("Enter drivers cars plate number:")
     plt_number = input()
-    print(f"New car driver\'s name is {d_name} {df_name}, and his/her car plate number is {plt_number}")
-    print("This is correct? (y/n)")
+    print(f"New drivers name is {d_name} {df_name}, and his/her plate number is {plt_number}")
+    print("Is this correct? (y/n)")
     while True:
         user_input = input()
         if user_input == "y":
@@ -75,8 +75,8 @@ def dev_mode_new_driver():
             print("Error, please try again")
 
 def dev_exit():
-    print("Exiting from developer\'s mode...\n\n\n\n\n\n\n\n\n")
-    print("Did you enjoy the ride? (yes/no)\nIf you need more info about driver, type \"info\"\nIf you need close the program, type \"exit\"")
+    print("Exiting from developer mode...\n\n\n\n\n\n\n\n\n")
+    print("Did you enjoy the ride? (yes/no)\nIf you need more information about driver, type \"info\"\nIf you don't wish to leave a review, type \"exit\"")
 
 def positive_review(driver_id):
     do_you_like = 10
@@ -85,7 +85,7 @@ def positive_review(driver_id):
         try:
             condition_score = int(input())
         except ValueError:
-            print("Ouch, here is error, so try again")
+            print("Ouch, there seems to be an error in your answer.  try again")
             continue
         if condition_score > 0 and condition_score < 11:
             print("Okaaay... On a 1-10 scale, how would you rate the condition of the car?")
@@ -93,7 +93,7 @@ def positive_review(driver_id):
                 try:
                     style_score = int(input())
                 except ValueError:
-                    print("Ouch, here is error, so try again")
+                    print("Ouch, there seems to be an error in your answer. Please try again")
                     continue
                 if style_score > 0 and style_score < 11:
                     print("Cool, so on a 1-10 scale, how would you rate the behaviour of the driver?")
@@ -101,14 +101,14 @@ def positive_review(driver_id):
                         try:
                             behaviour_score = int(input())
                         except ValueError:
-                            print("Ouch, here is error, so try again!")
+                            print("Ouch, there seems to be an error in your answer. Please try again!")
                             continue
                         if behaviour_score > 0 and behaviour_score < 11:
                             rate_list = [do_you_like, style_score, condition_score, behaviour_score]
                             '''Take average from data input and round it'''
                             avg_trip_score = round(mean(rate_list))
                             trips(do_you_like, condition_score, style_score, behaviour_score, driver_id, avg_trip_score)
-                            print("Thanks for you review! Closing program...")
+                            print("Thank you for your review! Closing program...")
                             exit()
                         else:
                             print("The rating is in the wrong range, please try again!")
@@ -118,10 +118,10 @@ def positive_review(driver_id):
             print("The rating is in the wrong range, please try again!")
             
 def return_developer_mode():
-    print("You entered into a developer\'s mode, choose a right setting:\n")
-    print("Type \"add\", to add new driver into a database")
-    print("Type \"change_id\" to change program\'s current driver_id")
-    print("Type \"exit\" to exit from developer\'s mode")
+    print("You entered developer mode, heh cool, what are we going to do?:\n")
+    print("Type \"add\", to add a new driver into the database")
+    print("Type \"change_id\" to change our programs current driver_id")
+    print("Type \"exit\" to exit from developer mode")
 
 def remove_sym(name):
     name = re.sub(r"[\[\]]",'',name)
@@ -170,23 +170,23 @@ def driver_info(driver_id):
     family_name = remove_sym(str(run_query(f'SELECT family_name FROM drivers WHERE id = "{driver_id}"')))
     print("Name: " + name + " " + family_name)
     car_plate = remove_sym(str(run_query(f'SELECT plate_number FROM drivers WHERE id = "{driver_id}"')))
-    print("Driver\'s car plate number: " + car_plate)
+    print("Drivers car plate number: " + car_plate)
     avg_score = remove_sym(str(run_query(f"SELECT AVG(avg_trip_score) FROM trips WHERE driver_id = {driver_id};")))
     avg_score = round(float(avg_score), 1)
-    if avg_score < 5.9:
+    if avg_score < 3.9:
         avg_score_colored = colored(225, 0, 0, str(avg_score))
         avg_score_colored = avg_score_colored.replace(" ", "")
-    elif avg_score > 5.9 and avg_score < 7.9:
+    elif avg_score > 3.9 and avg_score < 7.9:
         avg_score_colored = colored(255, 191, 0, str(avg_score))
         avg_score_colored = avg_score_colored.replace(" ", "")
     elif avg_score < 8:
         avg_score_colored = colored(0, 132, 80, str(avg_score))
         avg_score_colored = avg_score_colored.replace(" ", "")
-    print("Driver\'s rating: " + avg_score_colored +"/10")
+    print("Drivers rating: " + avg_score_colored +"/10")
     trip_amount = remove_sym(str(run_query(f'SELECT COUNT(driver_id) FROM trips WHERE driver_id = "{driver_id}"')))
     print(f"Number of trips: {trip_amount}")
     print("End of information list...\n\n\n\n")
-    print("Did you enjoy the ride? (yes/no)\nIf you need more info about driver, type \"info\"\nIf you need close the program, type \"exit\"")
+    print("Did you enjoy the ride? (yes/no)\nIf you need more information about the driver, type \"info\"\nIf you don't wish to leave a review, type \"exit\"")
 
 def run_query(query):
         sqlite3_output = sqlite3_run(sqlite3_file, query)
@@ -201,7 +201,7 @@ def sqlite3_check():
             with open (schema) as file:
                 sqlite3_create(sqlite3_file, file.read())
         else:
-            output = f'Error: Required file "{schema}" is not exist'
+            output = f'Error: Required file "{schema}" does not exist'
 
             return output
 
@@ -247,7 +247,7 @@ def dev_mode_activate():
                     
 def main():
     driver_id = 3
-    print("Did you enjoy the ride? (yes/no)\nIf you need more info about driver, type \"info\"\nIf you need close the program, type \"exit\"")
+    print("Did you enjoy the ride? (yes/no)\nIf you need more information about driver, type \"info\"\nIf you don't wish to leave a review, type \"exit\"")
 
     while True:
         user_input = input()
@@ -279,11 +279,11 @@ def main():
                     dev_exit()
                     break
                 elif (user_input == "search"):
-                    print("Please enter driver\'s name:")
+                    print("Please enter drivers name:")
                     search_name = input()
-                    print("Please enter driver\'s family name:")
+                    print("Please enter drivers last name:")
                     search_fname = input()
-                    print("Please enter driver car\' car table number:")
+                    print("Please enter drivers car car table number:")
                     search_tnumber = input()
                     print("Gimme sec...")
 
